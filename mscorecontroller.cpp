@@ -84,11 +84,6 @@ void MScoreController::service(HttpRequest& request, HttpResponse& response)
             printf("bad method <%s>\n", qPrintable(method));
             return;
             }
-      QByteArray format = request.getParameter("format");
-      if (format != "png") {
-            printf("bad format <%s>\n", qPrintable(format));
-            return;
-            }
 
       QTemporaryFile* f = request.getUploadedFile("score");
       if (!f)
@@ -99,10 +94,24 @@ void MScoreController::service(HttpRequest& request, HttpResponse& response)
             Score* score = new Score;
             XmlReader xr(data);
             score->read1(xr, true);
+
+            QByteArray s = request.getParameter("size");
+            if (!s.isEmpty()) {
+                  int size = s.toInt();
+                  if (size < 10)
+                        size = 10;
+                  else if (size > 400)
+                        size = 400;
+                  qreal spatium = score->spatium();
+                  spatium = (spatium * size) / 100.0;
+                  score->setSpatium(spatium);
+                  }
+
             score->doLayout();
             //
             // process score
             //
+            QByteArray format = request.getParameter("format");
             if (format == "png") {
                   processPng(response, score);
                   }

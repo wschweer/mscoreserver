@@ -2,3 +2,4 @@
 - implement upload of *.mscz files
 - error handling
 
+- currentyl X11 is required (on linux)
