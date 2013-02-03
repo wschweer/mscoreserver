@@ -1,0 +1,6 @@
+logs
+build
+.*,
+.qped
+.logs
+

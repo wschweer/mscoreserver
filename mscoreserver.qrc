@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/">
+        <file>fonts/mscore20.xml</file>
+        <file>fonts/gonville.xml</file>
+        <file>fonts/fonts_figuredbass.xml</file>
+        <file>fonts/fonts_tablature.xml</file>
+        <file>fonts/gonville-20.otf</file>
+        <file>fonts/mscore-20.otf</file>
+        <file>fonts/mscore1-20.ttf</file>
+        <file>fonts/MuseJazz.ttf</file>
+        <file>fonts/mscoreTab.ttf</file>
+        <file>fonts/FreeSerifMscore.ttf</file>
+        <file>fonts/FreeSerifBold.ttf</file>
+        <file>fonts/FreeSans.ttf</file>
+        <file>fonts/mscore-BC.ttf</file>
+        <file alias="styles/chords.xml">fonts/chords.xml</file>
+        <file alias="styles/stdchords.xml">fonts/stdchords.xml</file>
+        <file alias="styles/jazzchords.xml">fonts/jazzchords.xml</file>
+    </qresource>
+</RCC>
