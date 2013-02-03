@@ -1,11 +1,20 @@
-
+x
 
 This is the implementation of a simple MuseScore server.
 When uploading a score file, it returns the png of the first
-score.
+page.
 
 Files:
 mscoreserver.ini        configuration file for the http server
                         (move to $HOME/mscoreserver)
 mscoretest.html         simple web formular to upload a score
 
+
+Build&Run:
+
+mkdir build
+cd build
+qmake ../mscoreserver.pro
+make
+(drink coffee)
+./mscoreserver
