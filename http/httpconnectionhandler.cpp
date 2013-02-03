@@ -97,7 +97,7 @@ void HttpConnectionHandler::read()
             if (currentRequest->getStatus() == HttpRequest::waitForBody) {
                   // Restart timer for read timeout, otherwise it would
                   // expire during large file uploads.
-                  int readTimeout = settings->value("readTimeout", 3000).toInt();
+                  int readTimeout = settings->value("readTimeout", 5000).toInt();
                   readTimer.start(readTimeout);
                   }
             }

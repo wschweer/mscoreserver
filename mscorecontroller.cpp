@@ -195,11 +195,21 @@ void MScoreController::service(HttpRequest& request, HttpResponse& response)
       if (!f)
             printf(" no upload file\n");
       else {
-            QByteArray data = f->readAll();
 
+            QByteArray name = request.getParameter("score");
             Score* score = new Score;
-            XmlReader xr(data);
-            score->read1(xr, true);
+            if (name.endsWith(".mscx")) {
+                  QByteArray data = f->readAll();
+                  XmlReader xr(data);
+                  score->read1(xr, true);
+                  }
+            else if (name.endsWith(".mscz")) {
+                  score->loadCompressedMsc(f, true);
+                  }
+            else {
+                  printf("bad file type <%s>\n", qPrintable(name));
+                  return;
+                  }
 
             QByteArray s = request.getParameter("size");
             if (!s.isEmpty()) {
@@ -211,6 +221,20 @@ void MScoreController::service(HttpRequest& request, HttpResponse& response)
                   qreal spatium = score->spatium();
                   spatium = (spatium * size) / 100.0;
                   score->setSpatium(spatium);
+                  }
+            s = request.getParameter("transpose");
+            if (!s.isEmpty()) {
+                  int transpose = s.toInt();
+                  printf("transpose %d semitones\n", transpose);
+
+                  score->doLayout();
+                  score->cmdSelectAll();
+                  TransposeDirection d = transpose < 0 ? TRANSPOSE_DOWN :TRANSPOSE_UP;
+                  if (transpose < 0)
+                        transpose = -transpose;
+                  score->transpose(TRANSPOSE_BY_INTERVAL,
+                     d, 0, transpose, true, true, false);
+//                  score->deselectAll();
                   }
 
             score->doLayout();

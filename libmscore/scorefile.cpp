@@ -558,6 +558,12 @@ void Score::saveFile(QIODevice* f, bool msczFormat, bool onlySelection)
 //    return false on error
 //---------------------------------------------------------
 
+Score::FileError Score::loadCompressedMsc(QIODevice* dev, bool ignoreVersionError)
+      {
+      QZipReader uz(dev);
+      return loadCompressedMsc(uz, ignoreVersionError);
+      }
+
 Score::FileError Score::loadCompressedMsc(QString name, bool ignoreVersionError)
       {
       QZipReader uz(name);
@@ -566,6 +572,11 @@ Score::FileError Score::loadCompressedMsc(QString name, bool ignoreVersionError)
             MScore::lastError = QT_TRANSLATE_NOOP("file", "file not found");
             return FILE_NOT_FOUND;
             }
+      return loadCompressedMsc(uz, ignoreVersionError);
+      }
+
+Score::FileError Score::loadCompressedMsc(QZipReader& uz, bool ignoreVersionError)
+      {
       QByteArray cbuf = uz.fileData("META-INF/container.xml");
 
       QString rootfile;

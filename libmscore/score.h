@@ -91,6 +91,7 @@ class UndoCommand;
 class Cursor;
 struct PageContext;
 class BarLine;
+class QZipReader;
 
 extern bool showRubberBand;
 
@@ -461,6 +462,8 @@ class Score : public QObject {
       FileError read114(XmlReader&);
       FileError read1(XmlReader&, bool ignoreVersionError);
       FileError loadCompressedMsc(QString name, bool ignoreVersionError);
+      FileError loadCompressedMsc(QIODevice* dev, bool ignoreVersionError);
+      FileError loadCompressedMsc(QZipReader& uz, bool ignoreVersionError);
 
       QList<Staff*>& staves()                { return _staves; }
       const QList<Staff*>& staves() const    { return _staves; }
